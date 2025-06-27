@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2021 STRANGEHUMAN</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      height: 100vh;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 5em;
+      color: #1403ff;
+      text-shadow: 0 0 15px rgb(47, 0, 255);
+      margin-bottom: 40px;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: color 0.4s ease, transform 0.4s ease;
+    }
+
+    header h1:hover {
+      color: #9a9aff;
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+
+    header img {
+      width: 400px;
+      height: auto;
+      object-fit: contain;
+      margin-top: 100px;
+      margin-bottom: 40px;
+    }
+
+    .next-button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      background: rgb(17, 0, 255);
+      border: none;
+      border-radius: 25px;
+      font-size: 1em;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgb(0, 17, 255);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .next-button:hover {
+      background-color: rgb(30, 30, 255);
+      transform: scale(1.1);
+    }
+
+    .message-box {
+      margin-top: 20px;
+      padding: 20px;
+      max-width: 600px;
+      text-align: center;
+      font-size: 1.2em;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      min-height: 1em;
+    }
+
+    .message-box.show {
+      opacity: 1;
+    }
+
+    .message-box:hover {
+      color: #9a9aff;
+      transform: scale(1.05);
+      cursor: pointer;
+      transition: color 0.4s ease, transform 0.4s ease;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    #redirect-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      font-size: 2em;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    #redirect-overlay.show {
+      display: flex;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>2021</h1>
+    <img src="strange.png" alt="Imagen StrangeHuman" />
+    <div class="message-box" id="message-box"></div>
+    <button class="next-button" onclick="scrollToNext()">Next</button>
+  </header>
+
+  <div id="redirect-overlay">
+    <p>Redirigiendo...</p>
+  </div>
+
+  <script>
+    let currentMessage = 0;
+    const messages = [
+      "Se me olvida hasta mi nombre.",
+      "Se me olvidan las razones.",
+      "Casi nada me motiva, los demonios se me esconden.",
+      "Cuando me pongo la ski mask me dicen que me ría.",
+      "Y yo con mi cara de sueño, repitiendo 2021.",
+      "Repitiendo un dos mil—, repitiendo 2021."
+    ];
+
+    function scrollToNext() {
+      const msgBox = document.getElementById('message-box');
+      const header = document.querySelector('header');
+      const overlay = document.getElementById('redirect-overlay');
+
+      msgBox.classList.remove("show");
+
+      setTimeout(() => {
+        if (currentMessage < messages.length) {
+          msgBox.textContent = messages[currentMessage];
+          msgBox.classList.add("show");
+          currentMessage++;
+        } else {
+          overlay.classList.add("show");
+          header.classList.add("fade-out");
+
+          setTimeout(() => {
+            window.location.href = "https://www.youtube.com/watch?v=hkiu-PRDXNI&list=RDhkiu-PRDXNI&start_radio=1";
+          }, 1200);
+        }
+      }, 300);
+    }
+  </script>
+</body>
+</html>
